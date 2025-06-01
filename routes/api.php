@@ -16,7 +16,8 @@ Route::middleware('auth:api')->group(function (){
     Route::prefix('admin')->group(function (){
         Route::get('blogs',[AdminController::class,'adminBlogs']);
         Route::post('blog/add',[AdminController::class,'adminBlogAdd']);
-        Route::post('blog/update',[AdminController::class,'adminBlogUpdate']);
+        Route::get('blog/update/{blog_id}',[AdminController::class,'adminBlogtoUpdate']);
+        Route::post('blog/update/{blog_id}',[AdminController::class,'adminBlogUpdate']);
         Route::post('blog/delete',[AdminController::class,'adminBlogDelete']);
     });
 });

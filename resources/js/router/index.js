@@ -4,11 +4,12 @@ import Login from "@/admin/Login.vue";
 import DashboardLayout from "@/admin/DashboardLayout.vue";
 import Blogs from "@/admin/Blogs.vue";
 import BlogAdd from "@/admin/BlogAdd.vue";
+import BlogEdit from "@/admin/BlogEdit.vue";
 import store from "../store";
 
-function isAuthenticated(){
-    return !!localStorage.getItem('user')
-}
+// function isAuthenticated(){
+//     return !!localStorage.getItem('user')
+// }
 
 const routes = [
     {path:"/login",name:"login",component:Login},
@@ -17,6 +18,7 @@ const routes = [
             {path:"/",name:"home",component:Home},
             {path:"/blogs",name:"blogs",component:Blogs},
             {path:"/blog/add",name:"blogadd",component:BlogAdd},
+            {path:"/blog/edit/:blog_id",name:"blogedit",component:BlogEdit,props:true},
         ]},
 ]
 
@@ -26,7 +28,8 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-    if (to.meta.requiresAuth && !store.getters.isAuthenticated) {
+    const isAuthenticated = store.getters.isAuthenticated
+    if (to.meta.requiresAuth && !isAuthenticated) {
         return next({ name: 'login' })
     }
     next()

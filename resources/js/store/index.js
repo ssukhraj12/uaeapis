@@ -53,4 +53,5 @@ export default createStore({
     getters:{
         isAuthenticated: state => !!state.token,
     }
+
 })

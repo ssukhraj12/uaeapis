@@ -6,12 +6,14 @@
 
 import { createApp } from 'vue';
 import App from "./App.vue";
+import {QuillEditor } from "@vueup/vue-quill";
+import "@vueup/vue-quill/dist/vue-quill.snow.css"
 import vuetify from "./vuetify.js";
 import router from './router'
 import store from "./store"
 
 import axios from "axios";
-window.axios = axios;
+// window.axios = axios;
 
 const token = localStorage.getItem('token');
 if (token) {
@@ -21,20 +23,20 @@ if (token) {
 
 axios.interceptors.request.use(config=>{
     const token = store.state.token;
-    // config.headers['Content-Type'] = 'application/json';
-    // config.headers['Accept'] = 'application/json';
     if(token) {
         config.headers.Authorization = `Bearer ${token}`;
     }
     return config
+},(error)=>{
+    return Promise.reject(error)
 })
 
 let isRefreshing = false;
 let failedQueue = [];
 
-function processQueue(error, token = null){
+function processQueue(error, token = null) {
     failedQueue.forEach(prom => {
-        if(error){
+        if (error) {
             prom.reject(error)
         } else {
             prom.resolve(token)
@@ -47,9 +49,12 @@ axios.interceptors.response.use(
     response => response,
     async error => {
         const originalRequest = error.config
+
         if (error.response?.status === 401 && !originalRequest._retry) {
+            originalRequest._retry = true
+
             if (isRefreshing) {
-                return new Promise(function (resolve, reject) {
+                return new Promise((resolve, reject)=> {
                     failedQueue.push({ resolve, reject })
                 })
                     .then(token => {
@@ -58,17 +63,21 @@ axios.interceptors.response.use(
                     })
                     .catch(err => Promise.reject(err))
             }
-            originalRequest._retry = true
             isRefreshing = true
             try {
-                const { data } = await axios.post('/api/refresh')
+                const { data } = await axios.post('/api/refresh',null,{
+                    headers: {
+                        Authorization: `Bearer ${store.state.token}`
+                    }
+                })
                 store.commit('SET_TOKEN', data.token)
                 axios.defaults.headers.common.Authorization = `Bearer ${data.token}`
                 processQueue(null, data.token)
                 return axios(originalRequest)
             } catch (err) {
                 processQueue(err, null)
-                store.dispatch('logout')
+                await store.dispatch('logout')
+                await router.push({name:'login'})
                 return Promise.reject(err)
             } finally {
                 isRefreshing = false
@@ -78,8 +87,12 @@ axios.interceptors.response.use(
     }
 )
 
-const app = createApp(App);
+if (store.state.token) {
+    axios.defaults.headers.common.Authorization = `Bearer ${store.state.token}`
+}
 
+const app = createApp(App);
+app.component('QuillEditor',QuillEditor)
 app.use(store)
 app.use(router)
 app.use(vuetify)

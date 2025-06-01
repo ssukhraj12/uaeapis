@@ -1,6 +1,7 @@
 <template>
     <div>
         <h2>Home Dashbaord Page</h2>
+        {{this.$store.state}}
     </div>
 </template>
 <script>

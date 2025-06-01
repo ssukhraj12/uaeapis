@@ -19,6 +19,10 @@ const router = useRouter()
 
 onMounted(()=>{
     router.beforeEach((to,from,next)=>{
+        const isAuth = store.getters.isAuthenticated
+        if(to.meta.requiresAuth && !isAuth){
+            return next({name:'login'})
+        }
         loading.value = true
         next()
     })

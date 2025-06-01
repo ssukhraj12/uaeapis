@@ -1,7 +1,7 @@
 <template>
     <v-app>
-        <v-navigation-drawer rail expand-on-hover permanent>
-            <v-list nav density="compact" active-class="primary" class="d-flex flex-column fill-height">
+        <v-navigation-drawer rail expand-on-hover permanent app>
+            <v-list nav density="compact" active-class="primary" class="d-flex flex-column fill-height overflow-y-scroll">
                 <v-list-item>
                     <v-list-item-title>Your Resume Writer</v-list-item-title>
                 </v-list-item>
@@ -34,12 +34,24 @@ import { useRouter } from 'vue-router'
 const store = useStore()
 const router = useRouter()
 const logout = async () => {
-    await store.dispatch('logout')
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
     router.push({ name: 'login' })
+    await store.dispatch('logout')
 }
 
 </script>
 
-<style scoped>
-
+<style>
+.ql-toolbar.ql-snow {
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-family: 'Helvetica','Arial',sans-serif;
+    padding: 8px;
+    border-radius: 6px 6px 0 0;
+    background: #fafafa;
+}
+.ql-editor {
+    min-height: 175px;
+}
 </style>
