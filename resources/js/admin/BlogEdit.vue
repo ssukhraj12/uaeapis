@@ -14,7 +14,6 @@
             </v-col>
         </v-row>
         <v-row>
-            {{ablog}}
             <v-col cols="12" md="8">
                 <v-card flat class="border-sm">
                     <v-card-text>
