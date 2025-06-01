@@ -13,7 +13,7 @@ import router from './router'
 import store from "./store"
 
 import axios from "axios";
-// window.axios = axios;
+window.axios = axios;
 
 const token = localStorage.getItem('token');
 if (token) {
