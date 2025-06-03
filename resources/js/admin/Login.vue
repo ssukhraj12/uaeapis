@@ -4,8 +4,11 @@
             <v-row justify="center">
                 <v-col cols="12" md="4">
                     <v-card elevation="4" class="border-dashed rounded-lg">
-                        <v-card-title class="d-flex align-center">
-                            Your Resume Writer
+                        <v-card-title class="flex flex-column">
+                            <div>
+                                <v-img src="/images/logo.png" width="150" height="75"/>
+                            </div>
+                            <div>Your Resume Writer</div>
                         </v-card-title>
                         <v-card-subtitle>Login</v-card-subtitle>
                         <v-card-text>

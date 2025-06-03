@@ -2,7 +2,7 @@
     <v-app>
         <v-navigation-drawer rail expand-on-hover permanent app>
             <v-list nav density="compact" active-class="primary" class="d-flex flex-column fill-height overflow-y-scroll">
-                <v-list-item>
+                <v-list-item base-color="dark" prepend-avatar="/images/favicon.png">
                     <v-list-item-title>Your Resume Writer</v-list-item-title>
                 </v-list-item>
                 <v-divider></v-divider>
