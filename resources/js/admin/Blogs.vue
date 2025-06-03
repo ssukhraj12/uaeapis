@@ -8,7 +8,7 @@
                 <v-btn :to="{name:'blogadd'}" color="primary" density="default" class="text-none" prepend-icon="mdi-plus">Add Blog</v-btn>
             </v-col>
             <v-col cols="12" md="12">
-                <v-data-table :items="ablogs" :headers="ablogsHeaders" density="comfortable">
+                <v-data-table :items="ablogs" :headers="ablogsHeaders" density="default"class="border">
                     <template v-slot:item.blog_image="{item}">
                         <v-img v-if="item.blog_image" :src="item.blog_image"></v-img>
                         <v-img v-else src="https://dummyimage.com/120x63/000/fff&text=No+Image"></v-img>

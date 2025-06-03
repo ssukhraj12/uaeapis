@@ -139,7 +139,6 @@ export default{
             }
             const ndata = new FormData();
             ndata.append('blog_title',this.blog_title);
-
             if (this.blog_image instanceof File) {
                 ndata.append('blog_image', this.blog_image);
             }

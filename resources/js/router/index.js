@@ -5,6 +5,7 @@ import DashboardLayout from "@/admin/DashboardLayout.vue";
 import Blogs from "@/admin/Blogs.vue";
 import BlogAdd from "@/admin/BlogAdd.vue";
 import BlogEdit from "@/admin/BlogEdit.vue";
+import Gallery from "@/admin/Gallery.vue";
 import store from "../store";
 
 // function isAuthenticated(){
@@ -19,6 +20,7 @@ const routes = [
             {path:"/blogs",name:"blogs",component:Blogs},
             {path:"/blog/add",name:"blogadd",component:BlogAdd},
             {path:"/blog/edit/:blog_id",name:"blogedit",component:BlogEdit,props:true},
+            {path:"/gallery",name:"gallery",component:Gallery},
         ]},
 ]
 

@@ -9,8 +9,11 @@
                 <v-list-item link to="/" color="primary" prepend-icon="mdi-view-dashboard-outline" class="mt-3">
                     <v-list-item-title>Dashboard</v-list-item-title>
                 </v-list-item>
-                <v-list-item link to="/blogs" color="primary" prepend-icon="mdi-view-dashboard-outline">
+                <v-list-item link to="/blogs" color="primary" prepend-icon="mdi-post-outline">
                     <v-list-item-title>Blogs</v-list-item-title>
+                </v-list-item>
+                <v-list-item link to="/gallery" color="primary" prepend-icon="mdi-view-gallery-outline">
+                    <v-list-item-title>Gallery</v-list-item-title>
                 </v-list-item>
                 <v-spacer></v-spacer>
                 <v-list-item prepend-icon="mdi-logout">

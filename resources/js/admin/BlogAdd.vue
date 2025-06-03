@@ -51,7 +51,6 @@
     </div>
 </template>
 <script>
-
 export default{
     name:"BlogAdd",
     data(){
@@ -76,7 +75,6 @@ export default{
     },
     methods:{
         onImageChange() {
-
             if (this.blog_image instanceof File) {
                 this.imagePreview = URL.createObjectURL(this.blog_image);
             } else {
@@ -84,20 +82,26 @@ export default{
             }
         },
         addBlogData(){
-            const ndata = new FormData();
-            ndata.append('blog_title',this.blog_title);
-            ndata.append('blog_image',this.blog_image);
-            ndata.append('blog_description',this.quillContent);
+            const uheaders = {headers: {'Content-Type': 'multipart/form-data'}}
+            const adata = new FormData();
+            adata.append('blog_title',this.blog_title);
+            if (this.blog_image instanceof File) {
+                adata.append('blog_image', this.blog_image);
+            }
+            adata.append('blog_description',this.quillContent);
             this.tags.forEach((tag, index) => {
-                ndata.append(`tags[${index}]`, tag);
+                adata.append(`tags[${index}]`, tag);
             });
-            ndata.append('blog_status',this.blog_status);
-            ndata.append('meta_title',this.meta_title);
-            ndata.append('meta_desc',this.meta_desc);
+            adata.append('blog_status',this.blog_status);
+            adata.append('meta_title',this.meta_title);
+            adata.append('meta_desc',this.meta_desc);
 
-            axios.post('/api/admin/blog/add',ndata)
+            axios.post('/api/admin/blog/add',adata,uheaders)
                 .then((resp)=>{
-
+                    if(resp.data.status){
+                        const blog_id = resp.data.blog.blog_id;
+                        this.$router.push({name:'blogedit',params:{blog_id:blog_id}})
+                    }
                 })
                 .catch((err)=>{
                     alert(err.message);
