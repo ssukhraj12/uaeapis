@@ -10,10 +10,13 @@
                     <v-list-item-title>Dashboard</v-list-item-title>
                 </v-list-item>
                 <v-list-item link to="/blogs" color="primary" prepend-icon="mdi-post-outline">
-                    <v-list-item-title>Blogs</v-list-item-title>
+                    <v-list-item-title>YRW Blogs</v-list-item-title>
                 </v-list-item>
                 <v-list-item link to="/gallery" color="primary" prepend-icon="mdi-view-gallery-outline">
                     <v-list-item-title>Gallery</v-list-item-title>
+                </v-list-item>
+                <v-list-item link to="/rblogs" color="red" prepend-icon="mdi-account-tie-woman">
+                    <v-list-item-title>RM Blogs</v-list-item-title>
                 </v-list-item>
                 <v-spacer></v-spacer>
                 <v-list-item prepend-icon="mdi-logout">

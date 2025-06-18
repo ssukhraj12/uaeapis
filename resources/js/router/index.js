@@ -6,6 +6,9 @@ import Blogs from "@/admin/Blogs.vue";
 import BlogAdd from "@/admin/BlogAdd.vue";
 import BlogEdit from "@/admin/BlogEdit.vue";
 import Gallery from "@/admin/Gallery.vue";
+import Rblogs from "@/admin/Rblogs.vue";
+import RblogAdd from "@/admin/RblogAdd.vue";
+import RblogEdit from "@/admin/RblogEdit.vue";
 import store from "../store";
 
 // function isAuthenticated(){
@@ -21,6 +24,9 @@ const routes = [
             {path:"/blog/add",name:"blogadd",component:BlogAdd},
             {path:"/blog/edit/:blog_id",name:"blogedit",component:BlogEdit,props:true},
             {path:"/gallery",name:"gallery",component:Gallery},
+            {path:'/rblogs',name: "rblogs",component: Rblogs},
+            {path:"/rblog/add",name:"rblogadd",component:RblogAdd},
+            {path:"/rblog/edit/:rblog_id",name:"rblogedit",component:RblogEdit,props:true},
         ]},
 ]
 
