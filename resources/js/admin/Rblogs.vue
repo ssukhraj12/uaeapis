@@ -4,7 +4,6 @@
             <v-col cols="12" md="6">
                <h2>Rakhee Blogs List</h2>
             </v-col>
-            {{ablogs}}
             <v-col cols="12" md="6" class="text-end">
                 <v-btn :to="{name:'rblogadd'}" color="primary" density="default" class="text-none" prepend-icon="mdi-plus">Add Blog</v-btn>
             </v-col>
