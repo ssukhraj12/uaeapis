@@ -21,7 +21,7 @@ class FrontController extends Controller
 
     public function allrBlogs()
     {
-        $rblogs = Rblog::get();
+        $rblogs = Rblog::orderBy('created_at','desc')->get();
         return response()->json([
             'success' => true,
             'message' => 'All Blogs',
