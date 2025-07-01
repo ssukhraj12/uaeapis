@@ -57,7 +57,7 @@
 <script>
 
 export default{
-    name:"BlogAdd",
+    name:"BlogEdit",
     props:{
         blog_id:[Number,String]
     },

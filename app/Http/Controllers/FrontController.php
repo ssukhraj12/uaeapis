@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\Gallery;
+use App\Models\Photo;
 use App\Models\Rblog;
 use Illuminate\Http\Request;
 
@@ -35,6 +36,16 @@ class FrontController extends Controller
            'success' => true,
            'message' => 'All Gallery',
            'galleries' => $galleries
+       ]);
+   }
+
+   public function allPhotos()
+   {
+       $photos = Photo::with('rphotos')->orderBy('created_at','desc')->get();
+       return response()->json([
+           'success' => true,
+           'message' => 'All Photos',
+           'photos' => $photos
        ]);
    }
 }

@@ -11,6 +11,15 @@ import "@vueup/vue-quill/dist/vue-quill.snow.css"
 import vuetify from "./vuetify.js";
 import router from './router'
 import store from "./store"
+import Toast, {useToast} from "vue-toastification";
+import "vue-toastification/dist/index.css";
+// Optional toast options
+const options = {
+    position: 'bottom-right',
+    timeout: 1000,
+    closeOnClick: true,
+    pauseOnHover: true,
+};
 
 import axios from "axios";
 window.axios = axios;
@@ -92,6 +101,9 @@ if (store.state.token) {
 }
 
 const app = createApp(App);
+app.use(Toast, options);
+app.config.globalProperties.$toast = useToast();
+window.Toast = useToast();
 app.component('QuillEditor',QuillEditor)
 app.use(store)
 app.use(router)

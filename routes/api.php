@@ -29,6 +29,11 @@ Route::middleware('auth:api')->group(function (){
         Route::get('rblog/update/{rblog_id}',[RblogController::class,'adminrBlogtoUpdate']);
         Route::post('rblog/update/{rblog_id}',[RblogController::class,'adminrBlogUpdate']);
         Route::post('rblog/delete',[RblogController::class,'adminrBlogDelete']);
+        Route::get('/photos',[AdminController::class,'adminPhotoList']);
+        Route::post('/photo/add',[AdminController::class,'adminPhotoAdd']);
+        Route::get('/photo/update/{photo_id}',[AdminController::class,'adminPhotoToUpdate']);
+        Route::post('/photo/update/{photo_id}',[AdminController::class,'adminPhotoUpdate']);
+        Route::post('/photo/delete/{photo_id}',[AdminController::class,'adminPhotoDelete']);
     });
 });
 
@@ -39,4 +44,5 @@ Route::prefix('yrw')->group(function (){
 
 Route::prefix('rakhee')->group(function (){
     Route::get('/rblogs',[FrontController::class,'allrBlogs']);
+    Route::get('/photos',[FrontController::class,'allPhotos']);
 });

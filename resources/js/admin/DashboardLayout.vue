@@ -18,6 +18,9 @@
                 <v-list-item link to="/rblogs" color="red" prepend-icon="mdi-account-tie-woman">
                     <v-list-item-title>RM Blogs</v-list-item-title>
                 </v-list-item>
+                <v-list-item link to="/photos" color="primary" prepend-icon="mdi-image-multiple">
+                    <v-list-item-title>Photos</v-list-item-title>
+                </v-list-item>
                 <v-spacer></v-spacer>
                 <v-list-item prepend-icon="mdi-logout">
                     <v-list-item-title>

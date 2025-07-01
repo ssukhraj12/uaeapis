@@ -19,6 +19,7 @@
         "@vueup/vue-quill": "^1.2.0",
         "dayjs": "^1.11.13",
         "vue-router": "^4.5.1",
+        "vue-toastification": "^2.0.0-rc.5",
         "vuetify": "^3.8.7",
         "vuex": "^4.1.0"
     }

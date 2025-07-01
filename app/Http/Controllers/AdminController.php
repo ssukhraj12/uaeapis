@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\Gallery;
+use App\Models\Photo;
+use App\Models\Rphoto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
@@ -234,5 +236,140 @@ class AdminController extends Controller
             ]);
         }
 
+    }
+
+    public function adminPhotoList()
+    {
+        $photos = Photo::all();
+        return response()->json([
+            'status' => true,
+            'message' => 'Photo List',
+            'photos' => $photos,
+        ]);
+    }
+
+    public function adminPhotoAdd(Request $request)
+    {
+        $photo = new Photo();
+        $photo->photo_title = $request->photo_title ?? "Photo Title";
+        $photo->photo_description = $request->photo_description ?? "Photo Description";
+        $photo->photo_status = $request->photo_status ?? "active";
+        if ($request->hasFile('photo_url')) {
+            $image = $request->file('photo_url');
+            $filename = "photo_".uniqid().'.png';
+            $destinationPath = public_path('images/photo');
+            if (!File::exists($destinationPath)) {
+                File::makeDirectory($destinationPath, 0755, true);
+            }
+            $img = Image::make($image->getRealPath())->resize(1200, 1200, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($destinationPath.'/'.$filename);
+            $photo->photo_url = "images/photo/".$filename;
+        }
+        $photo->save();
+        if ($photo) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Photo Added Successfully',
+                'photo' => $photo,
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Photo not saved',
+                'photo' => null,
+            ]);
+        }
+    }
+
+    public function adminPhotoToUpdate($photo_id)
+    {
+        $photo = Photo::with('rphotos')->where('photo_id',$photo_id)->first();
+        if ($photo) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Photo to Update',
+                'photo_id' => $photo_id,
+                'photo' => $photo,
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Photo not found',
+                'photo_id' => $photo_id,
+                'photo' => null,
+            ]);
+        }
+    }
+
+    public function adminPhotoUpdate(Request $request,$photo_id)
+    {
+        $photo = Photo::Find($photo_id);
+        $photo->photo_title = $request->photo_title ?? "Photo Title";
+        $photo->photo_description = $request->photo_description ?? "Photo Description";
+        $photo->photo_status = $request->photo_status ?? "active";
+        if ($request->hasFile('photo_url')) {
+            $image = $request->file('photo_url');
+            $filename = "photo_".uniqid().'.png';
+            $destinationPath = public_path('images/photo');
+            if (!File::exists($destinationPath)) {
+                File::makeDirectory($destinationPath, 0755, true);
+            }
+            $img = Image::make($image->getRealPath())->resize(600, 600, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($destinationPath.'/'.$filename);
+            $photo->photo_url = "images/photo/".$filename;
+        }
+        if($request->hasFile('arphotos')){
+            foreach ($request->file('arphotos') as $file) {
+                $filename = "arphoto_" . uniqid() . '.png';
+                $destinationPath = public_path('images/arphotos');
+                if (!File::exists($destinationPath)) {
+                    File::makeDirectory($destinationPath, 0755, true);
+                }
+                $img = Image::make($file->getRealPath())->resize(600, 600, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($destinationPath.'/'.$filename);
+                $rphoto = new Rphoto();
+                $rphoto->rphoto_url = "images/arphotos/".$filename;
+                $rphoto->photo_id = $photo_id;
+                $rphoto->save();
+            }
+        }
+        $photo->save();
+
+        if ($photo) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Photo Updated Successfully',
+                'photo' => $photo,
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Photo not saved',
+                'photo' => null,
+            ]);
+        }
+    }
+
+    public function adminPhotoDelete(Request $request,$photo_id)
+    {
+        $photo = Photo::findOrFail($photo_id);
+        if ($photo->photo_url && File::exists(public_path($photo->photo_url))) {
+            File::delete(public_path($photo->photo_url));
+        }
+        $photo->delete();
+        if ($photo) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Admin Photo Deleted Successfully',
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Admin Photo not deleted',
+            ]);
+        }
     }
 }

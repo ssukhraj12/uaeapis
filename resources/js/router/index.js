@@ -9,6 +9,9 @@ import Gallery from "@/admin/Gallery.vue";
 import Rblogs from "@/admin/Rblogs.vue";
 import RblogAdd from "@/admin/RblogAdd.vue";
 import RblogEdit from "@/admin/RblogEdit.vue";
+import Photos from "@/admin/rakhee/Photos.vue";
+import PhotoAdd from "@/admin/rakhee/PhotoAdd.vue";
+import PhotoEdit from "@/admin/rakhee/PhotoEdit.vue";
 import store from "../store";
 
 // function isAuthenticated(){
@@ -27,6 +30,9 @@ const routes = [
             {path:'/rblogs',name: "rblogs",component: Rblogs},
             {path:"/rblog/add",name:"rblogadd",component:RblogAdd},
             {path:"/rblog/edit/:rblog_id",name:"rblogedit",component:RblogEdit,props:true},
+            {path:"/photos",name:"photos",component:Photos},
+            {path:"/photo/add",name:"photoadd",component:PhotoAdd},
+            {path:"/photo/edit/:photo_id",name:"photoedit",component:PhotoEdit,props:true},
         ]},
 ]
 
